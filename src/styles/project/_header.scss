@@ -1,0 +1,80 @@
+@use "../global/global" as g;
+
+.header {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 40%;
+    height: 100vh;
+    background-color: g.$color-white;
+    z-index: map-get(g.$z, 'menu');
+    @include g.mq(mobile) {
+        width: 80%;
+    }
+
+    &__bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba($color: g.$color-black, $alpha: 0.7);
+        visibility: hidden;
+        opacity: 0;
+        z-index: map-get(g.$z, 'bg');
+        cursor: pointer;
+    }
+
+    &__inner {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        padding: g.get_vw(125) g.get_vw(35) 0;
+        background-color: g.$color-white;
+        z-index: map-get(g.$z, 'headerInner');
+        @include g.mq(mobile) {
+            padding: g.get_vw(205) g.get_vw(35) 0;
+        }
+    }
+
+    &__link {
+        display: block;
+        color: g.$color-black;
+        font-family: g.$font-all;
+        font-size: g.get_vw(35);
+        margin: 0 0 g.get_vw(15);
+        text-decoration: none;
+        transition: g.$easeCustom1 0.6s;
+        transform: translateY(-40px);
+        opacity: 0;
+        z-index: map-get(g.$z, 'menu');
+        @include g.mq(mobile) {
+            font-size: g.get_vw(40);
+            margin: 0 0 g.get_vw(30);
+        }
+        &::after {
+            content: attr(data-hover);
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            transform: rotateX(90deg);
+            transition: g.$easeCustom1 0.3s;
+            opacity: 0;
+            color: g.$color-orange;
+            height: 0;
+        }
+        &:hover {
+            color: transparent;
+
+            &::after {
+                transform: rotateX(0deg);
+                top: 0;
+                opacity: 1;
+                height: 100%;
+            }
+        }
+        &:visited {
+            text-decoration: none;
+        }
+    }
+}
